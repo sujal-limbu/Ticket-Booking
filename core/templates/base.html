@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BASE</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <!-- Font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- custom CSS -->
+    {% block CSS %}
+
+
+    {% endblock CSS %}
+
+</head>
+
+<body >
+
+    <nav class="navbar navbar-expand-lg bg-success">
+
+        <div class="container-fluid ">
+            <h2 class="mx-auto">
+                <i class="fa-solid fa-plane me-2"></i>
+                <span class="text-warning">Sujal's Travel</span>
+            </h2>
+
+        </div>
+        
+    </nav>
+    {% block content %}
+
+    {% endblock content %}
+
+    <footer class="bg-dark text-light pt-4 mt-5">
+        <div class="container">
+            <div class="row">
+
+                <!-- Brand -->
+                <div class="col-md-4 mb-3">
+                    <h5 class="fw-bold">Suja’s Travel</h5>
+                    <p class="small">
+                        Sujal’s Travel is a domestic travel booking platform that helps users
+                        search, compare, and book bus and plane tickets easily within the country.
+                    </p>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="col-md-4 mb-3">
+                    <h5 class="fw-bold">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-light text-decoration-none">Home</a></li>
+                        <li><a href="#" class="text-light text-decoration-none">Book Ticket</a></li>
+                        <li><a href="#" class="text-light text-decoration-none">My Bookings</a></li>
+                        <li><a href="#" class="text-light text-decoration-none">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div class="col-md-4 mb-3">
+                    <h5 class="fw-bold">Contact</h5>
+                    <p class="small mb-1">📍 Nepal</p>
+                    <p class="small mb-1">📧 support@sujastravel.com</p>
+                    <p class="small">📞 +977-98XXXXXXXX</p>
+                </div>
+
+            </div>
+
+            <hr class="border-secondary">
+
+            <!-- Bottom -->
+            <div class="text-center pb-3 small">
+                © 2026 Suja’s Travel. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+
+
+
+    <!-- Bootsrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
