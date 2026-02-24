@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BASE</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+        crossorigin="anonymous">
+
+    <!-- Font awesome -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    {% block CSS %}{% endblock CSS %}
+</head>
+
+<!-- Flex column + full viewport height -->
+<body class="d-flex flex-column min-vh-100">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-success">
+        <div class="container-fluid">
+            <!-- Sidebar toggle button -->
+            <button class="btn btn-warning me-3" type="button"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#sidebar"
+                aria-controls="sidebar">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <!-- Brand -->
+            <h2 class="mx-auto">
+                <i class="fa-solid fa-plane me-2"></i>
+                <span class="text-warning">Sujal's Travel</span>
+            </h2>
+        </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <div class="offcanvas offcanvas-start bg-dark text-white" tabindex="-1" id="sidebar">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title">Menu</h5>
+            <button type="button" class="btn-close btn-close-white"
+                data-bs-dismiss="offcanvas"></button>
+        </div>
+
+        <div class="offcanvas-body">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{% url 'index' %}">
+                        <i class="fa-solid fa-house me-2"></i> Home
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{% url 'book' %}">
+                        <i class="fa-solid fa-ticket me-2"></i> Book Ticket
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#">
+                        <i class="fa-solid fa-book me-2"></i> My Bookings
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#">
+                        <i class="fa-solid fa-user me-2"></i> Profile
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Main content: flex-fill pushes footer to bottom -->
+    <main class="flex-fill">
+        <div class="container mt-4">
+            {% block content %}
+            {% endblock content %}
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light pt-4 mt-auto">
+        <div class="container">
+            <div class="row">
+                <!-- Brand -->
+                <div class="col-md-4 mb-3">
+                    <h5 class="fw-bold">Sujal’s Travel</h5>
+                    <p class="small">
+                        Sujal’s Travel is a domestic travel booking platform that helps users
+                        search, compare, and book bus and plane tickets easily within the country.
+                    </p>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="col-md-4 mb-3">
+                    <h5 class="fw-bold">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-light text-decoration-none">Home</a></li>
+                        <li><a href="#" class="text-light text-decoration-none">Book Ticket</a></li>
+                        <li><a href="#" class="text-light text-decoration-none">My Bookings</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div class="col-md-4 mb-3">
+                    <h5 class="fw-bold">Contact</h5>
+                    <p class="small mb-1">Nepal</p>
+                    <p class="small mb-1">sujallimbu31@gmail.com</p>
+                    <p class="small mb-1">+977-9811378158</p>
+                </div>
+            </div>
+
+            <hr class="border-secondary">
+
+            <div class="text-center small pb-3">
+                © 2026 Sujal’s Travel. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+</body>
+</html>

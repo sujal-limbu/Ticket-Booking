@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block CSS %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock CSS %}
+
+{% block content %}
+<div class="container">
+    <form method="GET" action="{% url 'book' %}">
+        <!-- First dropdown -->
+        <div class="mb-3">
+            <label for="fromLocation" class="form-label">From</label>
+            <select class="form-select" id="fromLocation" name="source" required>
+                <option selected disabled>Select departure</option>
+                <option value="Kathmandu">Kathmandu</option>
+                <option value="Biratnagar">Biratnagar</option>
+            </select>
+        </div>
+
+        <!-- Second dropdown -->
+        <div class="mb-3">
+            <label for="toLocation" class="form-label">To</label>
+            <select class="form-select" id="toLocation" name="destination" required>
+                <option selected disabled>Select destination</option>
+                <option value="Kathmandu">Kathmandu</option>
+                <option value="Biratnagar">Biratnagar</option>
+            </select>
+        </div>
+
+        <!-- Vehicle type -->
+        <div class="mb-3">
+            <input type="radio" id="flight" name="vehicle" value="Flight">
+            <label for="flight">Flight</label>
+
+            <input type="radio" id="bus" name="vehicle" value="Bus">
+            <label for="bus">Bus</label>
+        </div>
+
+        <!-- Submit button -->
+        <button type="submit" class="btn btn-primary mb-3">Search</button>
+    </form>
+</div>
+<hr>
+<div class="container d-flex">
+    {% if transports %}
+    <h4>Search Results:</h4>
+    <div class="row mx-2">
+        {% for t in transports %}
+        <div class="col-md-4 mb-3">
+            <div class="card">
+                <img src="{{ t.image.url }}" class="card-img-top" alt="{{ t.name }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ t.name }}</h5>
+                    <p class="card-text">
+                        Route: {{ t.start }} → {{ t.end }}<br>
+                        Vehicle Type: {{ t.vehicletype.Tname }}<br>
+                        Price: Rs {{ t.price }}
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% elif transports is not None %}
+    <p>No transport found for this route.</p>
+    {% endif %}
+</div>
+
+{% endblock content %}
