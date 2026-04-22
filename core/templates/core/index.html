@@ -3,32 +3,422 @@
 
 {% block CSS %}
 <link rel="stylesheet" href="{% static 'css/style.css' %}">
+<link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap"
+    rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<style>
+    :root {
+        --sand: #F5EFE0;
+        --ink: #1A1208;
+        --rust: #C4522A;
+        --mist: #D6CFC4;
+        --gold: #B89A5A;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        background-color: var(--sand);
+        font-family: 'DM Sans', sans-serif;
+        color: var(--ink);
+    }
+
+    /* ── HERO WRAPPER ───────────────────────────── */
+    .hero-wrapper {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        min-height: 100vh;
+    }
+
+    /* ── LEFT: IMAGE PANEL ──────────────────────── */
+    .hero-image-panel {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero-image-panel img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        filter: saturate(0.85) contrast(1.05);
+    }
+
+    /* Diagonal mask on right edge */
+    .hero-image-panel::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to right,
+                transparent 70%,
+                var(--sand) 100%);
+        pointer-events: none;
+    }
+
+    /* Subtle dark vignette at bottom */
+    .hero-image-panel::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 40%;
+        background: linear-gradient(to top, rgba(26, 18, 8, 0.35), transparent);
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    /* Floating stamp badge */
+    .stamp-badge {
+        position: absolute;
+        bottom: 2.5rem;
+        left: 2.5rem;
+        z-index: 2;
+        width: 96px;
+        height: 96px;
+        border-radius: 50%;
+        border: 2px dashed rgba(245, 239, 224, 0.7);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: var(--sand);
+        animation: spin 18s linear infinite;
+    }
+
+    .stamp-badge span {
+        font-size: 0.55rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        line-height: 1.5;
+    }
+
+    .stamp-badge .stamp-icon {
+        font-size: 1.4rem;
+        margin-bottom: 2px;
+    }
+
+    @keyframes spin {
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    /* ── RIGHT: CONTENT PANEL ───────────────────── */
+    .hero-content-panel {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 5rem 5rem 5rem 4rem;
+        position: relative;
+    }
+
+    /* Grain texture overlay */
+    .hero-content-panel::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+        pointer-events: none;
+        opacity: 0.6;
+    }
+
+    /* Decorative vertical rule */
+    .hero-content-panel::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 15%;
+        bottom: 15%;
+        width: 1px;
+        background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+    }
+
+    .eyebrow {
+        font-family: 'DM Sans', sans-serif;
+        font-size: 0.7rem;
+        font-weight: 500;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--rust);
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        animation: fadeUp 0.7s ease both;
+    }
+
+    .eyebrow::before {
+        content: '';
+        display: inline-block;
+        width: 32px;
+        height: 1px;
+        background: var(--rust);
+    }
+
+    .hero-title {
+        font-family: 'Playfair Display', serif;
+        font-size: clamp(2.6rem, 4vw, 3.8rem);
+        font-weight: 700;
+        line-height: 1.1;
+        color: var(--ink);
+        margin-bottom: 0.3rem;
+        animation: fadeUp 0.7s 0.1s ease both;
+    }
+
+    .hero-title em {
+        font-style: italic;
+        color: var(--rust);
+    }
+
+    .hero-subtitle {
+        font-family: 'Playfair Display', serif;
+        font-size: clamp(1rem, 1.5vw, 1.25rem);
+        font-weight: 400;
+        font-style: italic;
+        color: var(--gold);
+        margin-bottom: 2.5rem;
+        animation: fadeUp 0.7s 0.2s ease both;
+    }
+
+    .divider {
+        width: 60px;
+        height: 2px;
+        background: linear-gradient(to right, var(--rust), var(--gold));
+        margin-bottom: 2rem;
+        animation: fadeUp 0.7s 0.25s ease both;
+    }
+
+    .hero-description {
+        font-size: 1rem;
+        font-weight: 300;
+        line-height: 1.85;
+        color: #4A3E2E;
+        max-width: 42ch;
+        margin-bottom: 3rem;
+        animation: fadeUp 0.7s 0.3s ease both;
+    }
+
+    /* ── FEATURE PILLS ──────────────────────────── */
+    .features {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+        margin-bottom: 3rem;
+        animation: fadeUp 0.7s 0.4s ease both;
+    }
+
+    .feature-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.4rem 1rem;
+        border: 1px solid var(--mist);
+        border-radius: 100px;
+        font-size: 0.8rem;
+        color: #5A4A36;
+        background: rgba(255, 255, 255, 0.4);
+        backdrop-filter: blur(4px);
+        transition: border-color 0.2s, background 0.2s;
+    }
+
+    .feature-pill:hover {
+        border-color: var(--gold);
+        background: rgba(184, 154, 90, 0.08);
+    }
+
+    .feature-pill .pill-icon {
+        font-size: 0.9rem;
+    }
+
+    /* ── CTA BUTTONS ────────────────────────────── */
+    .cta-group {
+        display: flex;
+        align-items: center;
+        gap: 1.25rem;
+        animation: fadeUp 0.7s 0.5s ease both;
+    }
+
+    .btn-primary-travel {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        padding: 0.875rem 2rem;
+        background: var(--rust);
+        color: var(--sand);
+        font-family: 'DM Sans', sans-serif;
+        font-size: 0.85rem;
+        font-weight: 500;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        border: none;
+        cursor: pointer;
+        text-decoration: none;
+        transition: background 0.25s, transform 0.2s;
+        clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+    }
+
+    .btn-primary-travel:hover {
+        background: #A8421E;
+        transform: translateY(-2px);
+        color: var(--sand);
+        text-decoration: none;
+    }
+
+    .btn-secondary-travel {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-family: 'DM Sans', sans-serif;
+        font-size: 0.85rem;
+        font-weight: 500;
+        color: var(--ink);
+        text-decoration: none;
+        border-bottom: 1px solid var(--gold);
+        padding-bottom: 2px;
+        transition: color 0.2s, border-color 0.2s;
+    }
+
+    .btn-secondary-travel:hover {
+        color: var(--rust);
+        border-color: var(--rust);
+        text-decoration: none;
+    }
+
+    /* ── STATS ROW ──────────────────────────────── */
+    .stats-row {
+        display: flex;
+        gap: 2.5rem;
+        margin-top: 3.5rem;
+        padding-top: 2rem;
+        border-top: 1px solid var(--mist);
+        animation: fadeUp 0.7s 0.6s ease both;
+    }
+
+    .stat-item {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .stat-number {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--ink);
+        line-height: 1;
+    }
+
+    .stat-label {
+        font-size: 0.7rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-top: 0.25rem;
+    }
+
+    /* ── ANIMATIONS ─────────────────────────────── */
+    @keyframes fadeUp {
+        from {
+            opacity: 0;
+            transform: translateY(18px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* ── RESPONSIVE ─────────────────────────────── */
+    @media (max-width: 768px) {
+        .hero-wrapper {
+            grid-template-columns: 1fr;
+        }
+
+        .hero-image-panel {
+            height: 55vw;
+            min-height: 240px;
+        }
+
+        .hero-image-panel::after {
+            background: linear-gradient(to bottom,
+                    transparent 70%,
+                    var(--sand) 100%);
+        }
+
+        .hero-content-panel {
+            padding: 3rem 2rem 4rem;
+        }
+
+        .hero-content-panel::after {
+            display: none;
+        }
+
+        .stats-row {
+            gap: 1.5rem;
+        }
+
+        .cta-group {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+    }
+</style>
 {% endblock CSS %}
 
 {% block content %}
-<div class="container-fluid">
-    <div class="row align-items-center">
+<div class="hero-wrapper">
 
-        <!-- LEFT COLUMN -->
-        <div class="col-md-6 p-0">
-            <img 
-                src="{% static 'images/Travel.png' %}" 
-                class="img-fluid w-100"
-                alt="Travel Image">
+    <!-- ── LEFT: IMAGE PANEL ──────────────────── -->
+    <div class="hero-image-panel">
+        <img src="{% static 'images/Travel.png' %}" alt="Scenic travel destination">
+
+        <!-- Rotating stamp badge -->
+        <div class="stamp-badge">
+            <span class="stamp-icon">✈</span>
+            <span>Domestic&nbsp;Travel</span>
+            <span>Booking</span>
+        </div>
+    </div>
+
+    <!-- ── RIGHT: CONTENT PANEL ──────────────── -->
+    <div class="hero-content-panel">
+
+        <p class="eyebrow">Domestic Travel</p>
+
+        <h1 class="hero-title">
+            Journey<br><em>Across</em><br>Nepal
+        </h1>
+        <p class="hero-subtitle">Book your next adventure, effortlessly.</p>
+
+        <div class="divider"></div>
+
+        <p class="hero-description">
+            Sujal's Travel is a domestic travel booking platform that connects you
+            to destinations across the country. Choose your route, pick your vehicle
+            — bus or plane — and travel on your terms.
+        </p>
+
+        <!-- Feature pills -->
+        <div class="features">
+            <span class="feature-pill"><span class="pill-icon"><i class="fa-solid fa-bus"></i></span> Bus Routes</span>
+            <span class="feature-pill"><span class="pill-icon"><i class="fa fa-plane"></i></span> Flights</span>
         </div>
 
-        <!-- RIGHT COLUMN -->
-        <div class="col-md-6 d-flex align-items-center justify-content-center">
-            <div class="page p-4">
-                <h4>
-                    Sujal’s Travel is a domestic travel booking system designed to help users 
-                    book tickets for travel within the country. The platform allows users to select 
-                    their from and destination locations, and choose different types of vehicles such 
-                    as bus or plane.
-                </h4>
-            </div>
+        <!-- CTA buttons -->
+        <div class="cta-group">
+            <a href="#book" class="btn-primary-travel">
+                Book Now &nbsp;→
+            </a>
         </div>
-
     </div>
 </div>
 {% endblock content %}
